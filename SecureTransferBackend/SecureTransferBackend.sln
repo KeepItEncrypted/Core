@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecureTransferBackend", "SecureTransferBackend\SecureTransferBackend.csproj", "{363CAB1D-9D69-4866-AA93-5F9DB79FC64E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{A3F16361-880D-4EAE-8C9B-A2E554DFD2DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationTests", "IntegrationTests\IntegrationTests.csproj", "{DA60708C-F3EB-4B0E-AF09-53BA128BE89B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{363CAB1D-9D69-4866-AA93-5F9DB79FC64E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{363CAB1D-9D69-4866-AA93-5F9DB79FC64E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{363CAB1D-9D69-4866-AA93-5F9DB79FC64E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{363CAB1D-9D69-4866-AA93-5F9DB79FC64E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A3F16361-880D-4EAE-8C9B-A2E554DFD2DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A3F16361-880D-4EAE-8C9B-A2E554DFD2DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A3F16361-880D-4EAE-8C9B-A2E554DFD2DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A3F16361-880D-4EAE-8C9B-A2E554DFD2DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA60708C-F3EB-4B0E-AF09-53BA128BE89B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA60708C-F3EB-4B0E-AF09-53BA128BE89B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA60708C-F3EB-4B0E-AF09-53BA128BE89B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA60708C-F3EB-4B0E-AF09-53BA128BE89B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

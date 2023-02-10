@@ -1,0 +1,27 @@
+version: "3.9"
+services:
+  db:
+    image: postgres:15-alpine
+    ports:
+      - "127.0.0.1:17001:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    healthcheck:
+      test: [ 'CMD-SHELL', 'pg_isready' ]
+      interval: 10s
+      timeout: 5s
+  cache:
+    image: redis:7-alpine
+    ports:
+      - "127.0.0.1:17002:6379"
+    healthcheck:
+      test: [ 'CMD', 'redis-cli', 'ping' ]
+      interval: 10s
+      timeout: 5s
+  mailhog:
+    image: mailhog/mailhog:latest
+    ports:
+      - "127.0.0.1:18003:1025"
+      - "127.0.0.1:18002:8025"

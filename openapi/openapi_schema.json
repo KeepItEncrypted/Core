@@ -1,0 +1,673 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "SecureTransferBackend",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/Antiforgery/token": {
+      "get": {
+        "tags": [
+          "Antiforgery"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Inbox": {
+      "get": {
+        "tags": [
+          "Inbox"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/InboxItem"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/InboxItem"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/InboxItem"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Inbox/{recipientId}": {
+      "get": {
+        "tags": [
+          "Inbox"
+        ],
+        "parameters": [
+          {
+            "name": "recipientId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/InboxItemDetail"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InboxItemDetail"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InboxItemDetail"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/PublicKeyPair": {
+      "get": {
+        "tags": [
+          "PublicKeyPair"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PublicKeyPairDto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PublicKeyPairDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PublicKeyPairDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "PublicKeyPair"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePublicKeyPair"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePublicKeyPair"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePublicKeyPair"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/PublicKeyPair/for-user/{userId}": {
+      "get": {
+        "tags": [
+          "PublicKeyPair"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PublicKeyPairDto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PublicKeyPairDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PublicKeyPairDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/PublicKeyPair/{publicKeyId}": {
+      "get": {
+        "tags": [
+          "PublicKeyPair"
+        ],
+        "parameters": [
+          {
+            "name": "publicKeyId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicKeyPairDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicKeyPairDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicKeyPairDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Transfers": {
+      "post": {
+        "tags": [
+          "Transfers"
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "EncryptedFiles",
+                  "EncryptedKeys",
+                  "UsedPublicKeyId",
+                  "UserId"
+                ],
+                "type": "object",
+                "properties": {
+                  "UserId": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "UsedPublicKeyId": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "EncryptedFiles": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/EncryptedFileDto"
+                    }
+                  },
+                  "EncryptedKeys": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/EncryptedKeyDto"
+                    }
+                  }
+                }
+              },
+              "encoding": {
+                "UserId": {
+                  "style": "form"
+                },
+                "UsedPublicKeyId": {
+                  "style": "form"
+                },
+                "EncryptedFiles": {
+                  "style": "form"
+                },
+                "EncryptedKeys": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Transfers/CreateBundle": {
+      "post": {
+        "tags": [
+          "Transfers"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBundle"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBundle"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBundle"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreatedBundle"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreatedBundle"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreatedBundle"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Transfers/Bundle/{bundleId}/AddFile": {
+      "post": {
+        "tags": [
+          "Transfers"
+        ],
+        "parameters": [
+          {
+            "name": "bundleId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "EncryptedFileName",
+                  "FormFile",
+                  "Signature"
+                ],
+                "type": "object",
+                "properties": {
+                  "FormFile": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "EncryptedFileName": {
+                    "type": "string"
+                  },
+                  "Signature": {
+                    "type": "string"
+                  }
+                }
+              },
+              "encoding": {
+                "FormFile": {
+                  "style": "form"
+                },
+                "EncryptedFileName": {
+                  "style": "form"
+                },
+                "Signature": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Transfers/{bundleId}": {
+      "delete": {
+        "tags": [
+          "Transfers"
+        ],
+        "parameters": [
+          {
+            "name": "bundleId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AttachmentDto": {
+        "type": "object",
+        "properties": {
+          "fileName": {
+            "type": "string",
+            "nullable": true
+          },
+          "storageLocation": {
+            "type": "string",
+            "nullable": true
+          },
+          "signature": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateBundle": {
+        "required": [
+          "recipients",
+          "usedPublicKeyId"
+        ],
+        "type": "object",
+        "properties": {
+          "encryptedMessage": {
+            "type": "string",
+            "nullable": true
+          },
+          "usedPublicKeyId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "recipients": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CreateRecipient"
+            }
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreatePublicKeyPair": {
+        "required": [
+          "publicEncryptionKey",
+          "publicVerifierKey"
+        ],
+        "type": "object",
+        "properties": {
+          "publicVerifierKey": {
+            "maxLength": 210,
+            "minLength": 1,
+            "type": "string"
+          },
+          "publicEncryptionKey": {
+            "maxLength": 1000,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateRecipient": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "encryptedKeys": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EncryptedKeyDto"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreatedBundle": {
+        "type": "object",
+        "properties": {
+          "createdBundleId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false
+      },
+      "DecryptorKeyDto": {
+        "type": "object",
+        "properties": {
+          "encryptedSymmetricKey": {
+            "type": "string",
+            "nullable": true
+          },
+          "publicKeyUsedForEncryption": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "EncryptedFileDto": {
+        "required": [
+          "encryptedFileName",
+          "formFile",
+          "signature"
+        ],
+        "type": "object",
+        "properties": {
+          "formFile": {
+            "type": "string",
+            "format": "binary"
+          },
+          "encryptedFileName": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "signature": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "EncryptedKeyDto": {
+        "required": [
+          "encryptedAesKey",
+          "publicKeyPairId"
+        ],
+        "type": "object",
+        "properties": {
+          "publicKeyPairId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "encryptedAesKey": {
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "InboxItem": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "bundleId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "InboxItemDetail": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "bundleId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "publicKeyIdForSignature": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "message": {
+            "type": "string",
+            "nullable": true
+          },
+          "attachments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AttachmentDto"
+            },
+            "nullable": true
+          },
+          "decryptorKeys": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DecryptorKeyDto"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PublicKeyPairDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "publicVerifierKey": {
+            "type": "string",
+            "nullable": true
+          },
+          "publicEncryptionKey": {
+            "type": "string",
+            "nullable": true
+          },
+          "applicationUserId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  }
+}
